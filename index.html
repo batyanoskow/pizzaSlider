@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Montserrat:regular,500,600,700,800");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: "Montserrat";
+            font-weight: 500;
+            font-size: 18px;
+            color: white;
+        }
+        .wrap {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            background-color: rgba(30, 30, 30,1);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .place {
+            width: 500px;
+            height:500px;
+            background-color: orange;
+            border-radius: 50%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            transition: 1s;
+            margin-left: -320px;
+           
+        }
+
+        .row {
+            width: 100%;
+            height: 30%;
+            /*            background-color: black;*/
+            display: flex;
+
+        }
+
+        .item {
+            width: 120px;
+            height: 120px;
+            background-color: red;
+            border-radius: 50%;
+            position: relative;
+            background-size: cover;
+        }
+
+        .topRow {
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .centerRow {
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bottomRow {
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .item_top {
+            top: -25px;
+        }
+
+        .item_left {
+            left: -25px;
+        }
+
+        .item_right {
+            left: 25px;
+        }
+
+        .item_bottom {
+            top: 25px;
+        }
+        #infoContainer{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+           
+            color: white;
+        }
+   #pizzaNameContainer
+   {
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 15px;
+   }
+   #pizzaDescriptionContainer{
+    margin-bottom: 20px;
+   }
+   .actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+   }
+   .btn_next{
+    width: 130px;
+    height: 50px;
+    border-radius: 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   margin-top: 100px;
+   font-size: 16px;
+   font-weight: 600;
+  
+border: none;
+
+    background-color: lime;
+   }
+   @media (max-width:575px){
+      .place{
+        margin-left: 0;
+        position: absolute;
+        top: -400px;
+        left: calc(50% - 250px);
+      }
+   }
+    </style>
+</head>
+
+<body>
+    <div class="wrap" id="wrap">
+        <div class="place" id="place">
+            <div class="row topRow">
+                <div class="item item_top" id="item_top"></div>
+            </div>
+            <div class="row centerRow">
+                <div class="item item_left" id="item_left"></div>
+                <div class="item item_right" id="item_right"></div>
+            </div>
+            <div class="row bottomRow">
+                <div class="item item_bottom" id="item_bottom"></div>
+            </div>
+        </div>
+        <div class="actions">
+        <div class="infoContainer" id="infoContainer">
+            <div id="pizzaNameContainer"></div>
+            <div id="pizzaDescriptionContainer"></div>
+            <div id="pizzaWeightContainer"></div>
+        </div>
+        <button class="btn_next" id="next">Next</button>
+        </div>
+    </div>
+
+
+    <script>
+        let allPizzaInfo = [];
+
+
+        let pizza1 = {
+            pic: 'https://vgorode.ua/img/article/4292/61_main-v1577262649.jpg',
+            pizzaName: 'Тоскана',
+            pizzaDescriptiom: 'Сир, курка, помідори',
+            pizzaWeight: 350
+        };
+        let pizza2 = {
+            pic: 'https://lviv.virtual.ua/images/404283/',
+            pizzaName: 'Роял',
+            pizzaDescriptiom: 'Сир, салямі, помідори',
+            pizzaWeight: 200
+        };
+        let pizza3 = {
+            pic: 'https://lviv.virtual.ua/images/404283/',
+            pizzaName: 'Діабола',
+            pizzaDescriptiom: 'Сир, гриби',
+            pizzaWeight: 400
+        };
+        let pizza4 = {
+            pic: 'https://lviv.virtual.ua/images/404283/',
+            pizzaName: '5 сирів',
+            pizzaDescriptiom: 'Сир, сир, сир, сир, сир',
+            pizzaWeight: 600
+        };
+
+        allPizzaInfo.push(pizza1);
+        allPizzaInfo.push(pizza2);
+        allPizzaInfo.push(pizza3);
+        allPizzaInfo.push(pizza4);
+
+
+        item_top.style.backgroundImage = "url(" + allPizzaInfo[0].pic + ")";
+        item_left.style.backgroundImage = "url(" + allPizzaInfo[1].pic + ")";
+        item_right.style.backgroundImage = "url(" + allPizzaInfo[2].pic + ")";
+        item_bottom.style.backgroundImage = "url(" + allPizzaInfo[3].pic + ")";
+
+
+        let placeDeg = 0 ;
+  
+        let currentInfo = 0;
+
+        pizzaNameContainer.innerText = allPizzaInfo[0].pizzaName;
+        pizzaWeightContainer.innerText = allPizzaInfo[0].pizzaWeight + " гр";
+        pizzaDescriptionContainer.innerText = allPizzaInfo[0].pizzaDescriptiom;
+
+        next.onclick = function() {
+            if (currentInfo < allPizzaInfo.length - 1) {
+                currentInfo++;
+                pizzaNameContainer.innerText = allPizzaInfo[currentInfo].pizzaName;
+                pizzaWeightContainer.innerText = allPizzaInfo[currentInfo].pizzaWeight + " гр";
+                pizzaDescriptionContainer.innerText = allPizzaInfo[currentInfo].pizzaDescriptiom;
+
+            } else {
+                currentInfo = 0;
+                pizzaNameContainer.innerText = allPizzaInfo[currentInfo].pizzaName;
+                pizzaWeightContainer.innerText = allPizzaInfo[currentInfo].pizzaWeight + " гр";
+                pizzaDescriptionContainer.innerText = allPizzaInfo[currentInfo].pizzaDescriptiom;
+
+            }
+
+            placeDeg += 90;
+            place.style.transform = 'rotate(' + placeDeg + 'deg)';
+       
+        }
+    </script>
+</body></html>
